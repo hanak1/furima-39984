@@ -6,35 +6,48 @@
 | Column            | Type | Options      |
 | ------------------| ---- | ------------ |
 | nick_name         |string|null: false   |
-| mail_address      |string|unique: true  |
-| password          |string|null: false   |
+| email             |string|null: false unique: true  |
 | encrypted_password|string|null: false   |
 | last_name         |string|null: false   |
 | first_name        |string|null: false   |
+| japanese_last_name  |string|null: false   |
+| japanese_first_name |string|null: false   |
 | birth_date        |string|null: false   |
 
+### Association
+has_many :items
+has_many :purchase_records
+
 ## items テーブル
-| Column                    | Type   | Options    |
-| ------------------------- | ------ | ---------- |
-| picture                   |string  |null: false |
-| product_name              |string  |null: false |
-| product_detail            |string  |null: false|
-| category                  |string  |null: false|
-|product_condition          |string  |null: false|
-|shipping_fee               |string  |null: false|
-|region_of_shipping_origin  |string  |null: false |
-|estimated delivery date    |string  |null: false |
-| price                     |string  |null: false|
-| item_supplier             |string  |null: false|
-| user                      |string  |null: false  foreign_key: true|
+| Column                    | Type       | Options    |
+| ------------------------- | ------------| ---------- |
+| product_name              |string      |null: false |
+| product_detail            |string      |null: false|
+| category_id                |integer  |null: false|
+|product_condition_id        |integer  |null: false|
+|shipping_fee_id             |integer  |null: false|
+|region_of_shipping_origin_id|integer  |null: false |
+|estimated_delivery_date_id  |integer |null: false |
+| price                     |integer     |null: false|
+| item_supplier             |string     |null: false|
+| user                      |references     |null: false  foreign_key: true|
+
+### Association
+- belongs_to :user
+- has_one :purchase_record
 
 
 ## purchase records テーブル
-| Column            | Type     | Options                       |
-|-------------------|----------|-------------------------------|
-| customer          |string    |null: false  foreign_key: true                  |
-| purchased_item    |string    |null: false  foreign_key: true                  |
-※外部キーどちらも
+| Column            | Type         | Options                       |
+|-------------------|--------------|-------------------------------|
+| user              |references    |null: false  foreign_key: true                  |
+| item              |references    |null: false  foreign_key: true                  |
+
+### Association
+- belongs_to :item
+- belongs_to :user
+- belongs_to :customer
+
 
 ## customers テーブル
 | Column            | Type     | Options     |
@@ -43,4 +56,14 @@
 | prefecture        |string    |null: false  |
 | city              |string    |null: false  |
 | street_address    |string     |null: false  |
+| apartment_name    |string     |null: false  |
 | tel               |string     |null: false  |
+
+### Association
+- has_one :purchase record
+
+<!-- 
+associationは以下のように書く
+### Association
+- belongs_to :group
+- belongs_to :user -->
