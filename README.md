@@ -1,8 +1,7 @@
 # README
-|             |  |       |
 
 ## users テーブル
-
+ 
 | Column            | Type | Options      |
 | ------------------| ---- | ------------ |
 | nick_name         |string|null: false   |
@@ -12,11 +11,11 @@
 | first_name        |string|null: false   |
 | japanese_last_name  |string|null: false   |
 | japanese_first_name |string|null: false   |
-| birth_date        |string|null: false   |
+| birth_date        |date|null: false   |
 
 ### Association
-has_many :items
-has_many :purchase_records
+- has_many :items
+- belongs_to :purchase_records
 
 ## items テーブル
 | Column                    | Type       | Options    |
@@ -29,7 +28,6 @@ has_many :purchase_records
 |region_of_shipping_origin_id|integer  |null: false |
 |estimated_delivery_date_id  |integer |null: false |
 | price                     |integer     |null: false|
-| item_supplier             |string     |null: false|
 | user                      |references     |null: false  foreign_key: true|
 
 ### Association
@@ -53,17 +51,13 @@ has_many :purchase_records
 | Column            | Type     | Options     |
 |-------------------|----------|-------------|
 | zip_code          |string    |null: false  |
-| prefecture        |string    |null: false  |
+| user              |references|null: false  foreign_key: true|
 | city              |string    |null: false  |
 | street_address    |string     |null: false  |
 | apartment_name    |string     |null: false  |
 | tel               |string     |null: false  |
+|purchase_record    |reference  |null: false  foreign_key: true|
 
 ### Association
-- has_one :purchase record
+- has_one :purchase_record
 
-<!-- 
-associationは以下のように書く
-### Association
-- belongs_to :group
-- belongs_to :user -->
