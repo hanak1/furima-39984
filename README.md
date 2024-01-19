@@ -15,7 +15,7 @@
 
 ### Association
 - has_many :items
-- belongs_to :purchase_records
+- has_many :purchase_records
 
 ## items テーブル
 | Column                    | Type       | Options    |
@@ -44,20 +44,20 @@
 ### Association
 - belongs_to :item
 - belongs_to :user
-- belongs_to :customer
+- has_one :customer
 
 
 ## customers テーブル
-| Column            | Type     | Options     |
-|-------------------|----------|-------------|
-| zip_code          |string    |null: false  |
-| user              |references|null: false  foreign_key: true|
-| city              |string    |null: false  |
-| street_address    |string     |null: false  |
-| apartment_name    |string     |null: false  |
-| tel               |string     |null: false  |
-|purchase_record    |reference  |null: false  foreign_key: true|
+| Column                      | Type     | Options     |
+|-----------------------------|----------|-------------|
+| zip_code                    |string    |null: false  |
+| region_of_shipping_origin_id|references|null: false  foreign_key: true|
+| city                        |string    |null: false  |
+| street_address              |string     |null: false  |
+| apartment_name              |string     |null: false  |
+| tel                         |string     |null: false  |
+|purchase_record              |reference  |null: false  foreign_key: true|
 
 ### Association
-- has_one :purchase_record
+- belongs_to :purchase_record
 
