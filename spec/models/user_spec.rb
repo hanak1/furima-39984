@@ -48,29 +48,68 @@ RSpec.describe User, type: :model do
       end
       it 'passwordが5文字以下では登録できない' do
         @user.password = '00000'
-        @user.password_confirmation = '00000'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
       end
-      it 'お名前（全角）は半角では登録できない' do
-        @user.japanese_last_name = 'myouji'
+      it 'passwordが半角数字のみの場合は登録できない' do
+        @user.password = '111111'
         @user.valid?
-        expect(@user.errors.full_messages).to include('Japanese last name 全角文字を使用してください')
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      end
+      it 'passwordが半角英字のみの場合は登録できない' do
+        @user.password = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      end
+      it 'passwordが全角の場合は登録できない' do
+        @user.password = '1ｑｗｒｔｐｓ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
       it 'お名前（全角）は半角では登録できない' do
-        @user.japanese_last_name = 'namae'
-        @user.valid?
-        expect(@user.errors.full_messages).to include('Japanese last name 全角文字を使用してください')
-      end
-      it 'お名前カナ（全角）はひらがな、半角では登録できない' do
         @user.japanese_last_name = 'myouji'
         @user.valid?
         expect(@user.errors.full_messages).to include('Japanese last name 全角文字を使用してください')
       end
-      it 'お名前カナ（全角）はひらがな、半角では登録できない' do
+      it 'お名前（全角）は半角では登録できない' do
+        @user.japanese_last_name = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Japanese last name can't be blank")
+      end
+      it 'お名前カナ（全角）はひらがなでは登録できない' do
         @user.japanese_last_name = 'myouji'
         @user.valid?
         expect(@user.errors.full_messages).to include('Japanese last name 全角文字を使用してください')
+      end
+      it 'お名前カナ（全角）はひらがなでは登録できない' do
+        @user.japanese_last_name = 'myouji'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Japanese last name 全角文字を使用してください')
+      end
+      it 'お名前カナ（全角）は空では登録できない' do
+        @user.japanese_last_name = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Japanese last name can't be blank")
+      end
+      it 'お名前カナ（全角）は空では登録できない' do
+        @user.japanese_last_name = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Japanese last name can't be blank")
+      end
+      it 'お名前カナ（全角）は空では登録できない' do
+        @user.japanese_last_name = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Japanese last name can't be blank")
+      end
+      it 'お名前カナ（全角）は空では登録できない' do
+        @user.japanese_last_name = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Japanese last name can't be blank")
+      end
+      it '誕生日は空では登録できない' do
+        @user.birth_date = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Birth date can't be blank")
       end
     end
   end
