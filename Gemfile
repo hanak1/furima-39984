@@ -60,11 +60,6 @@ group :development do
   gem "web-console"
   gem 'rubocop', require: false
 
-  # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  # gem "rack-mini-profiler"
-
-  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
 end
 
 group :test do
@@ -81,3 +76,5 @@ end
 gem 'active_hash'
 gem 'devise'
 gem 'pry'
+gem 'mini_magick'
+gem 'image_processing', '~> 1.2'
