@@ -9,7 +9,7 @@ window.addEventListener('turbo:load', () => {
     addTaxDom.innerHTML = salesTax;
 
     const profitDom = document.getElementById("profit");
-    const profit = inputvalue - salesTax;
+    const profit = Math.floor(inputvalue - salesTax);
     profitDom.innerHTML = profit;
   });
 });

@@ -23,35 +23,35 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Product detail can't be blank")
       end
-      it 'category_idが空では登録できない' do
-        @item.category_id = ''
+      it 'category_idに「---」が選択されている場合は出品できない' do
+        @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category can't be blank")
+        expect(@item.errors.full_messages).to include("Category --- can't choose")
       end
-      it 'product_condition_idが空では登録できない' do
-        @item.product_condition_id = ''
+      it 'product_condition_idに「---」が選択されている場合は出品できない' do
+        @item.product_condition_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Product condition can't be blank")
+        expect(@item.errors.full_messages).to include("Product condition --- can't choose")
       end
-      it 'shipping_fee_idが空では登録できない' do
-        @item.shipping_fee_id = ''
+      it 'shipping_fee_idに「---」が選択されている場合は出品できない' do
+        @item.shipping_fee_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping fee can't be blank")
+        expect(@item.errors.full_messages).to include("Shipping fee --- can't choose")
       end
-      it 'region_of_shipping_origin_idが空では登録できない' do
-        @item.region_of_shipping_origin_id = ''
+      it 'region_of_shipping_origin_idに「---」が選択されている場合は出品できない' do
+        @item.region_of_shipping_origin_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Region of shipping origin can't be blank")
+        expect(@item.errors.full_messages).to include("Region of shipping origin --- can't choose")
       end
-      it 'estimated_delivery_date_idが空では登録できない' do
-        @item.estimated_delivery_date_id = ''
+      it 'estimated_delivery_date_idに「---」が選択されている場合は出品できない' do
+        @item.estimated_delivery_date_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Estimated delivery date can't be blank")
+        expect(@item.errors.full_messages).to include("Estimated delivery date --- can't choose")
       end
       it 'priceが空では登録できない' do
         @item.price = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is invalid", "Price is not a number")
+        expect(@item.errors.full_messages).to include("Price can't be blank", "Price Half-width number", "Price can't be blank", "Price is invalid")
       end
       it 'userがログインしていなければ登録できない' do
         @item.user = nil
@@ -61,17 +61,17 @@ RSpec.describe Item, type: :model do
       it 'Price は¥300未満¥1000000以上であれば登録できない' do
         @item.price = '299'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
+        expect(@item.errors.full_messages).to include("Price is invalid")
       end
       it 'Price は¥300未満¥1000000以上であれば登録できない' do
         @item.price = '10000000'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
+        expect(@item.errors.full_messages).to include("Price is invalid")
       end
       it 'Price は半角数値でなければ登録できない' do
         @item.price = 'aA１２'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include("Price Half-width number", "Price is invalid")
       end
     end
   end

@@ -11,12 +11,12 @@ class Item < ApplicationRecord
   # 空のitem投稿を保存できないようにする
   validates :product_name, :product_detail, presence: true
   # 価格は半角数字のみの意味
-  validates :price, format: { with: /\A[0-9]+\z/ }
-  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
+  validates :price, presence: true, numericality: {only_integer: true, message: 'Half-width number'}
+  validates :price, numericality: {greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: 'is invalid'}
   # ジャンルの選択が「---」の時は保存できない
-  validates :category_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :product_condition_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :shipping_fee_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :region_of_shipping_origin_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :estimated_delivery_date_id, numericality: { other_than: 1, message: "can't be blank" }
+  validates :category_id, numericality: { other_than: 1, message: "--- can't choose" }
+  validates :product_condition_id, numericality: { other_than: 1, message: "--- can't choose" }
+  validates :shipping_fee_id, numericality: { other_than: 1, message: "--- can't choose" }
+  validates :region_of_shipping_origin_id, numericality: { other_than: 1, message: "--- can't choose" }
+  validates :estimated_delivery_date_id, numericality: { other_than: 1, message: "--- can't choose" }
 end
