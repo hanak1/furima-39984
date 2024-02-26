@@ -1,0 +1,4 @@
+class order < ApplicationRecord
+  belongs_to :user
+  has_one :Address
+end

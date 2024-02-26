@@ -17,7 +17,7 @@ class Item < ApplicationRecord
   validates :category_id, numericality: { other_than: 1, message: "--- can't choose" }
   validates :product_condition_id, numericality: { other_than: 1, message: "--- can't choose" }
   validates :shipping_fee_id, numericality: { other_than: 1, message: "--- can't choose" }
-  validates :region_of_shipping_origin_id, numericality: { other_than: 1, message: "--- can't choose" }
+  # validates :region_of_shipping_origin_id, numericality: { other_than: 1, message: "--- can't choose" }
   validates :estimated_delivery_date_id, numericality: { other_than: 1, message: "--- can't choose" }
   validates :image, presence: true
 end
