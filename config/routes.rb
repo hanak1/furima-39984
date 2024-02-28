@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :items
 
   resources :items do
-    resources :orders, only:[:create, :index]
+    resources :orders, only: [:create, :index]
   end
 end
 
