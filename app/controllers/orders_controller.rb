@@ -1,5 +1,8 @@
 class OrdersController < ApplicationController
 
+  before_action :authenticate_user!, only: [:index]
+  # indexするにはログインの意味
+
   def index
     @item = Item.find(params[:item_id])
     @purchase_record = PurchaseRecord.new
