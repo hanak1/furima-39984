@@ -4,8 +4,6 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:edit, :update, :show, :destroy]
   # private内に意味を定義済み
   before_action :move_to_index, only: [:edit, :update, :destroy]
-  # before_action :go_for_index, only: [:create, :index]
-  # 売却済み商品の商品情報編集ページへ遷移しようとすると、トップページに遷移
   
 
   def index
@@ -56,13 +54,9 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    redirect_to root_path unless current_user.id == @item.user_id
+    if current_user.id == @item.user_id || @item.order.present?
+      redirect_to root_path
+        # redirect_to root_path unless current_user.id == @item.user_id ||@item.order.present?
+    end
   end
-  
-    #  def go_for_index
-    #   @item = Item.find(params[:id])
-    #    if current_user.id == @item.user_id || @item.order.present?
-    #      redirect_to root_path
-    #    end
-    #  end
 end
