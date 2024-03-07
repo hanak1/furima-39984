@@ -1,11 +1,11 @@
 class OrdersController < ApplicationController
 
     before_action :authenticate_user!
-    before_action :go_for_index, only: [:create, :index]
     # 商品購入ページへ遷移するとトップページに遷移
+    before_action :set_item, only: [:index, :create]
+    before_action :go_for_index, only: [:create, :index]
 
   def index
-    @item = Item.find(params[:item_id])
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @purchase_record = PurchaseRecord.new
   end
@@ -17,7 +17,6 @@ class OrdersController < ApplicationController
         @purchase_record.save
             redirect_to root_path
        else
-        @item = Item.find(params[:item_id])
         gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
          render :index, status: :unprocessable_entity
        end
@@ -32,16 +31,19 @@ class OrdersController < ApplicationController
    def pay_item
       Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
       Payjp::Charge.create(
-        amount: Item.find(params[:item_id]).price,  # 商品の値段
+        amount: @item.price,  # 商品の値段
         card: purchase_record_params[:token],    # カードトークン
         currency: 'jpy'                 # 通貨の種類（日本円）
       )
     end
+
     def go_for_index
-      @item = Item.find(params[:item_id])
        if current_user.id == @item.user_id || @item.order.present?
          redirect_to root_path
        end
      end
-
+    
+     def set_item
+        @item = Item.find(params[:item_id])
+     end
 end

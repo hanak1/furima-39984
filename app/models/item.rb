@@ -10,7 +10,6 @@ class Item < ApplicationRecord
   belongs_to :shipping_fee
   belongs_to :region_of_shipping_origin
   belongs_to :estimated_delivery_date
-  belongs_to :user
   # 空のitem投稿を保存できないようにする
   validates :product_name, :product_detail, presence: true
   # 価格は半角数字のみの意味
