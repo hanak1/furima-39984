@@ -1,5 +1,8 @@
 class Item < ApplicationRecord
   has_one_attached :image
+  belongs_to :user
+  has_one :order
+
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
@@ -7,7 +10,6 @@ class Item < ApplicationRecord
   belongs_to :shipping_fee
   belongs_to :region_of_shipping_origin
   belongs_to :estimated_delivery_date
-  belongs_to :user
   # 空のitem投稿を保存できないようにする
   validates :product_name, :product_detail, presence: true
   # 価格は半角数字のみの意味

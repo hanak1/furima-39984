@@ -12,8 +12,8 @@ class User < ApplicationRecord
     validates :japanese_last_name, presence: true
     validates :japanese_last_name, presence: true
   end
-  validates :birth_date, presence: true
+    validates :birth_date, presence: true
 
     has_many :items
-  #  has_many :purchase_records
+    has_many :purchase_records
 end
