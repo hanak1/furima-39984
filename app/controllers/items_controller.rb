@@ -1,9 +1,12 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
-  # new,editするにはログインの意味
+  # new,edit,destroyするにはログインの意味
   before_action :set_item, only: [:edit, :update, :show, :destroy]
   # private内に意味を定義済み
   before_action :move_to_index, only: [:edit, :update, :destroy]
+  # before_action :go_for_index, only: [:create, :index]
+  # 売却済み商品の商品情報編集ページへ遷移しようとすると、トップページに遷移
+  
 
   def index
     @items = Item.includes(:user).order("created_at DESC")
@@ -55,4 +58,11 @@ class ItemsController < ApplicationController
   def move_to_index
     redirect_to root_path unless current_user.id == @item.user_id
   end
+  
+    #  def go_for_index
+    #   @item = Item.find(params[:id])
+    #    if current_user.id == @item.user_id || @item.order.present?
+    #      redirect_to root_path
+    #    end
+    #  end
 end

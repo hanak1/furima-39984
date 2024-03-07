@@ -38,8 +38,8 @@
 ## purchase records テーブル
 | Column            | Type         | Options                       |
 |-------------------|--------------|-------------------------------|
-| user              |references    |null: false  foreign_key: true                  |
-| item              |references    |null: false  foreign_key: true                  |
+| user              |references    |null: false foreign_key:true                  |
+| item              |references    |null: false foreign_key:true                  |
 
 ### Association
 - belongs_to :item
@@ -51,7 +51,7 @@
 | Column                      | Type     | Options     |
 |-----------------------------|----------|-------------|
 | zip_code                    |string    |null: false  |
-| region_of_shipping_origin_id|references|null: false  foreign_key: true|
+| region_of_shipping_origin_id|integer   |null: false  |
 | city                        |string    |null: false  |
 | street_address              |string     |null: false  |
 | apartment_name              |string     |null: false  |
