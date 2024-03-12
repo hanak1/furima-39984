@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   # new,edit,destroyするにはログインの意味
   before_action :set_item, only: [:edit, :update, :show, :destroy]
   # private内に意味を定義済み
-  before_action :move_to_index, only: [:destroy, :edit, :update]
+   before_action :move_to_index, only: [:destroy, :edit, :update]
   
 
   def index
@@ -39,7 +39,7 @@ class ItemsController < ApplicationController
 
   def destroy
       @item.destroy
-      # redirect_to root_path
+      redirect_to root_path
   end
 
 
